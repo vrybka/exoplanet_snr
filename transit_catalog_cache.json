@@ -1,0 +1,18 @@
+{
+  "fetched_unix": 1794524286,
+  "targets": [
+    {
+      "name": "WASP-12 b",
+      "ra_deg": 97.636645,
+      "dec_deg": 29.6722662,
+      "vmag": 11.569,
+      "rmag": null,
+      "imag": null,
+      "star_radius_solar": 1.69,
+      "planet_radius_jupiter": 1.965,
+      "duration_hours": 3.001,
+      "period_days": 1.091418901,
+      "epoch_bjd": 2457607.519305
+    }
+  ]
+}
