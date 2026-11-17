@@ -32,6 +32,12 @@ pub fn render_forecast_panel(ui: &mut egui::Ui, app: &mut App) {
 
     ui.add_space(10.0);
 
+    ui.add_space(16.0_f32);
+    ui.colored_label(
+        TEXT_DIM,
+        "Planning estimate, not a guaranteed detection.",
+    );
+
     egui::Frame::group(ui.style())
         .fill(BG_PANEL)
         .stroke(egui::Stroke::new(1.0_f32, STROKE))

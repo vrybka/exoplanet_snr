@@ -23,7 +23,7 @@ pub fn render_observation_panel(ui: &mut egui::Ui, app: &mut App) {
         ui.colored_label(
             TEXT_DIM,
             "Camera presets are illustrative planning values; \
-             verify your camera's gain, QE and read noise.",
+             verify your camera's gain, QE and noise.",
         );
 
         ui.horizontal(|ui| {

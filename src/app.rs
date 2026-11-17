@@ -5,6 +5,7 @@ use eframe::egui;
 use crate::catalog::{cache_path, load_cache, now};
 use crate::state::{Band, Camera, Cache, Input, Target};
 use crate::theme;
+use crate::theme::{TEXT_HEAD};
 use crate::ui;
 
 pub struct App {
@@ -27,7 +28,7 @@ impl Default for App {
             camera: Camera::Asi533,
             cache: load_cache(),
             query: String::new(),
-            status: "Enter the values manually or look up the catalog".into(),
+            status: "Enter the values manually or look up in the catalog".into(),
             rx: None,
         }
     }
@@ -41,9 +42,19 @@ impl eframe::App for App {
         egui::CentralPanel::default().show(ctx, |ui| {
             ui.spacing_mut().item_spacing.x = 12.0;
 
+            ui.vertical_centered(|ui| {
+                ui.label(egui::RichText::new("🔭").size(22.0_f32));
+                ui.label(
+                    egui::RichText::new("Exoplanet Transit SNR Estimator")
+                        .strong()
+                        .size(18.0_f32)
+                        .color(TEXT_HEAD),
+                );
+            });
+            ui.add_space(2.0);
+
             ui.columns(3, |columns| {
-                // Render inputs first so the forecast uses this frame's edits.
-                // Column indices determine placement, regardless of render order.
+    
                 egui::ScrollArea::both()
                     .id_salt("target_scroll")
                     .auto_shrink([false, false])

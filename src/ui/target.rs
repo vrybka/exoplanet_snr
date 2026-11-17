@@ -12,33 +12,6 @@ use crate::ui::{optional, panel_card, section_header, signed_optional};
 pub fn render_target_panel(ui: &mut egui::Ui, app: &mut App) {
     ui.add_space(4.0);
 
-    // Title block — kept here so the middle column still has the app header.
-    // Remove this block if you'd rather put the title in a `TopBottomPanel`
-    // in `app.rs` and have all three columns start at the section header.
-    ui.horizontal(|ui| {
-        ui.add(egui::Label::new(egui::RichText::new("🔭").size(22.0)));
-        ui.vertical(|ui| {
-            ui.add(
-                egui::Label::new(
-                    egui::RichText::new("Exoplanet Transit SNR")
-                        .strong()
-                        .size(18.0)
-                        .color(TEXT_HEAD),
-                ),
-            );
-            ui.colored_label(
-                crate::theme::ACCENT,
-                egui::RichText::new("Estimator").strong().size(18.0),
-            );
-        });
-    });
-    ui.colored_label(
-        TEXT_DIM,
-        "Planning estimate, not a guaranteed detection. \
-         All calculations work offline with manual inputs.",
-    );
-    ui.add_space(6.0);
-
     section_header(ui, "Target");
     panel_card(ui, |ui| {
         // Catalog query row

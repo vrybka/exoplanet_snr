@@ -1,4 +1,4 @@
-// Disk cache for the NASA Exoplanet Archive lookups.
+// Cache for the NASA Exoplanet Archive lookups
 use crate::state::{Cache, Target};
 use std::{
     fs,
@@ -26,7 +26,7 @@ pub fn load_cache() -> Cache {
         .unwrap_or_default()
 }
 
-/// Query the NASA Exoplanet Archive for a planet by name.
+/// Query the NASA Exoplanet Archive for a planet by name
 pub fn fetch_target(name: &str) -> Result<Target, String> {
     let term = name.trim().replace('+', " ").to_lowercase();
     let safe = term.replace(['%', '_'], "").replace('\'', "''");
