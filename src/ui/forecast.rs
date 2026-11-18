@@ -6,8 +6,7 @@ use crate::theme::{BAD, BG_PANEL, OK, STROKE, TEXT_DIM, TEXT_HEAD, WARN};
 use crate::ui::{section_header};
 
 pub fn render_forecast_panel(ui: &mut egui::Ui, app: &mut App) {
-    ui.add_space(8.0);
-
+    ui.add_space(3.0);
     section_header(ui, "Detection forecast");
 
     ui.vertical_centered(|ui| {
@@ -22,11 +21,25 @@ pub fn render_forecast_panel(ui: &mut egui::Ui, app: &mut App) {
         .corner_radius(egui::CornerRadius::same(8))
         .inner_margin(egui::Margin::same(14))
         .show(ui, |ui| {
+            let no_target_values = app.t.star_radius_solar.is_none()
+                && app.t.planet_radius_jupiter.is_none()
+                && app.t.duration_hours.is_none();
+
+            if no_target_values {
+                ui.vertical_centered(|ui| {
+                    ui.colored_label(
+                        WARN,
+                        egui::RichText::new(format!("⚠ Enter the target manually or look up in the catalog")).strong().size(15.0)
+                    );
+                });
+                return;
+            }
+
             match evaluate(&app.i, &app.t, app.band, app.i.aperture_cm, true) {
                 Ok(result) => render_result(ui, &result, app.i.threshold),
                 Err(error) => {
-                    ui.colored_label(WARN, egui::RichText::new(format!("⚠ {error}")).strong().size(15.0));
-                }
+                    ui.vertical_centered(|ui| { ui.colored_label(WARN, egui::RichText::new(format!("⚠ {error}")).strong().size(15.0));
+                });}
             }
         });
 
