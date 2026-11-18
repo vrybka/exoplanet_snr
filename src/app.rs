@@ -47,7 +47,7 @@ impl eframe::App for App {
                 ui.label(
                     egui::RichText::new("Exoplanet Transit SNR Estimator")
                         .strong()
-                        .size(18.0_f32)
+                        .size(22.0_f32)
                         .color(TEXT_HEAD),
                 );
             });

@@ -14,12 +14,14 @@ pub fn section_header(ui: &mut egui::Ui, title: &str) {
         .corner_radius(egui::CornerRadius::same(6))
         .inner_margin(egui::Margin::symmetric(10, 6))
         .show(ui, |ui| {
-            ui.colored_label(
-                ACCENT,
-                egui::RichText::new(title.to_uppercase())
-                    .strong()
-                    .size(13.0),
-            );
+            ui.vertical_centered(|ui| {
+                ui.colored_label(
+                    ACCENT,
+                    egui::RichText::new(title.to_uppercase())
+                        .strong()
+                        .size(16.0),
+                );
+            });
         });
     ui.add_space(4.0);
 }

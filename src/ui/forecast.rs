@@ -3,17 +3,17 @@ use eframe::egui;
 use crate::app::App;
 use crate::snr::evaluate;
 use crate::theme::{BAD, BG_PANEL, OK, STROKE, TEXT_DIM, TEXT_HEAD, WARN};
+use crate::ui::{section_header};
 
 pub fn render_forecast_panel(ui: &mut egui::Ui, app: &mut App) {
     ui.add_space(8.0);
 
-    ui.label(
-        egui::RichText::new("Detection forecast")
-            .strong()
-            .size(20.0)
-            .color(TEXT_HEAD),
-    );
-    ui.colored_label(TEXT_DIM, "Live · updates as you change inputs");
+    section_header(ui, "Detection forecast");
+
+    ui.vertical_centered(|ui| {
+        ui.colored_label(TEXT_DIM, "· updates live as you change inputs · ");
+    });
+
     ui.add_space(6.0);
 
     egui::Frame::group(ui.style())
@@ -25,18 +25,21 @@ pub fn render_forecast_panel(ui: &mut egui::Ui, app: &mut App) {
             match evaluate(&app.i, &app.t, app.band, app.i.aperture_cm, true) {
                 Ok(result) => render_result(ui, &result, app.i.threshold),
                 Err(error) => {
-                    ui.colored_label(WARN, egui::RichText::new(format!("⚠ {error}")).strong());
+                    ui.colored_label(WARN, egui::RichText::new(format!("⚠ {error}")).strong().size(15.0));
                 }
             }
         });
 
-    ui.add_space(10.0);
+    ui.add_space(10.0_f32);
 
-    ui.add_space(16.0_f32);
-    ui.colored_label(
-        TEXT_DIM,
-        "Planning estimate, not a guaranteed detection.",
-    );
+    ui.vertical_centered(|ui| {
+        ui.colored_label(
+            TEXT_DIM,
+            "Planning estimate, not a guaranteed detection.",
+        );
+    });
+
+    ui.add_space(10.0);
 
     egui::Frame::group(ui.style())
         .fill(BG_PANEL)
@@ -46,12 +49,12 @@ pub fn render_forecast_panel(ui: &mut egui::Ui, app: &mut App) {
         .show(ui, |ui| {
             ui.label(
                 egui::RichText::new(
-                    "No unverified forecast or radiance-to-sky-brightness \
-                     conversion is applied. Scintillation assumes sea-level \
-                     altitude. Systematic blocks are independent between transits.",
+                    "No unverified forecast or radiance-to-sky-brightness conversion is applied. \
+                     Scintillation assumes sea-level altitude.  \
+                     Systematic blocks are independent between transits.",
                 )
                 .color(TEXT_DIM)
-                .size(11.0),
+                .size(12.0),
             );
         });
 }

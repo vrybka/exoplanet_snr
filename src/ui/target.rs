@@ -8,7 +8,6 @@ use crate::catalog::fetch_target;
 use crate::theme::{OK, TEXT_DIM, TEXT_HEAD};
 use crate::ui::{optional, panel_card, section_header, signed_optional};
 
-
 pub fn render_target_panel(ui: &mut egui::Ui, app: &mut App) {
     ui.add_space(4.0);
 
